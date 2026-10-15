@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
@@ -22,6 +21,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import app.lawnchair.lawnicons.data.model.IconInfo
 import app.lawnchair.lawnicons.ui.Lawnicons
 import app.lawnchair.lawnicons.ui.components.SetupEdgeToEdge
@@ -35,16 +35,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        WindowCompat.enableEdgeToEdge(window)
 
         val app = application as LawniconsApplication
         val metroVmf = app.lawniconsGraph.viewModelFactory
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            @Suppress("DEPRECATION")
-            window.setDecorFitsSystemWindows(false)
-            window.setNavigationBarContrastEnforced(false)
-        }
 
         val isIconPicker = intent?.action == Constants.ICON_PICKER_INTENT_ACTION
 
